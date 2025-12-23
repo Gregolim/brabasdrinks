@@ -8,9 +8,10 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #000;
+  background-color: #000;
   color: #fff;
   margin: 0;
+  padding: 0;
 }
 
 header {
@@ -19,14 +20,29 @@ header {
   background: #111;
 }
 
-h1, h2, h3 {
+header img {
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+h1 {
   color: #ff4da6;
+  margin: 10px 0 0 0;
+  font-size: 2.2rem;
 }
 
 .menu {
+  padding: 30px 20px;
   max-width: 600px;
   margin: auto;
-  padding: 20px;
+}
+
+.menu h2 {
+  text-align: center;
+  color: #ff4da6;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
 }
 
 .item {
@@ -34,36 +50,74 @@ h1, h2, h3 {
   border: 2px solid #ff4da6;
   border-radius: 12px;
   padding: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.item label {
+  flex: 1;
+  font-size: 1.1rem;
 }
 
 .item input {
   width: 60px;
   text-align: center;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ff4da6;
 }
 
 .summary {
+  margin-top: 20px;
+  padding: 20px;
   background: #1a1a1a;
   border: 2px solid #ff4da6;
   border-radius: 12px;
-  padding: 20px;
+}
+
+.summary h3 {
+  margin-top: 0;
+  color: #ff4da6;
+}
+
+.delivery, .pagamento {
+  margin: 15px 0;
 }
 
 .btn {
+  display: block;
   width: 100%;
   padding: 15px;
   background: #ff4da6;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
   border: none;
   border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: bold;
   cursor: pointer;
 }
 
 .hidden {
   display: none;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ff4da6;
+  margin-bottom: 8px;
 }
 </style>
 </head>
@@ -71,41 +125,62 @@ h1, h2, h3 {
 <body>
 
 <header>
+  <img src="logobravasdrink.jpeg" alt="Logo Braba's Drinks">
   <h1>Braba's Drinks</h1>
 </header>
 
-<section class="menu" id="formulario">
+<section class="menu">
 <h2>Monte seu Pedido</h2>
 
 <div class="item"><label>Copão de Gin - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
 <div class="item"><label>Copão de Vodka - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
 <div class="item"><label>Copão de Whisky - R$28</label><input type="number" min="0" value="0" data-price="28"></div>
-<div class="item"><label>Gourmet Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
-<div class="item"><label>Gourmet Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+<div class="item"><label>Copão Gourmet de Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+<div class="item"><label>Copão Gourmet de Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+<div class="item"><label>Fusca Azul - R$24</label><input type="number" min="0" value="0" data-price="24"></div>
+<div class="item"><label>Aloprado - R$26</label><input type="number" min="0" value="0" data-price="26"></div>
+<div class="item"><label>Final de Noite - R$30</label><input type="number" min="0" value="0" data-price="30"></div>
+<div class="item"><label>Combo Whisky em Dobro - R$40</label><input type="number" min="0" value="0" data-price="40"></div>
 
 <div class="summary">
 <h3>Resumo do Pedido</h3>
 <p id="total">Total: R$ 0,00</p>
 
-<h4>Entrega</h4>
-<label><input type="radio" name="entrega" value="retirada" checked> Retirada</label><br>
-<label><input type="radio" name="entrega" value="entrega"> Entrega (+R$7)</label>
+<div class="delivery">
+<label><input type="radio" name="entrega" value="retirada" checked onchange="mostrarEndereco()"> Retirada</label><br>
+<label><input type="radio" name="entrega" value="entrega" onchange="mostrarEndereco()"> Entrega (+R$7)</label>
+</div>
 
-<h4>Pagamento</h4>
+<div id="enderecoEntrega" class="hidden">
+<input type="text" id="rua" placeholder="Rua">
+<input type="text" id="numero" placeholder="Número">
+<input type="text" id="casa" placeholder="Casa">
+<input type="text" id="bairro" placeholder="Bairro">
+<input type="text" id="referencia" placeholder="Ponto de Referência">
+</div>
+
+<div id="enderecoRetirada">
+<p><b>Endereço para retirada:</b><br>Rua Colibri, 327 - Bairro Fênix</p>
+</div>
+
+<div class="pagamento">
+<h4>Forma de pagamento:</h4>
 <label><input type="radio" name="pagamento" value="cartao"> Cartão</label><br>
 <label><input type="radio" name="pagamento" value="dinheiro"> Dinheiro</label><br>
-<label><input type="radio" name="pagamento" value="pix"> Pix</label>
+<label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label>
+</div>
 
-<br><br>
+<div id="pixInfo" class="hidden">
+<p><b>Chave Pix:</b><br>05283512142<br>Maiara Roberto Gregolim</p>
+</div>
+
 <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
 </div>
 </section>
 
-<section class="menu hidden" id="telaFinal">
-<h2>✅ Pedido registrado!</h2>
-<p id="mensagemFinal"></p>
-<button class="btn" onclick="location.reload()">Novo pedido</button>
-</section>
+<footer>
+© 2025 Braba's Drinks – Delivery de Drinks
+</footer>
 
 <script>
 const inputs = document.querySelectorAll(".item input");
@@ -113,86 +188,50 @@ const totalEl = document.getElementById("total");
 
 function calcularTotal() {
   let total = 0;
-
   inputs.forEach(input => {
-    const qtd = Number(input.value);
-    const preco = Number(input.dataset.price);
-    if (!isNaN(qtd) && !isNaN(preco)) {
-      total += qtd * preco;
-    }
+    total += Number(input.value) * Number(input.dataset.price);
   });
 
   const entrega = document.querySelector('input[name="entrega"]:checked');
-  if (entrega && entrega.value === "entrega" && total > 0) {
-    total += 7;
-  }
+  if (entrega.value === "entrega" && total > 0) total += 7;
 
-  totalEl.innerText = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
-  return total;
+  totalEl.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
 }
 
-// recalcula sempre
-inputs.forEach(i => i.addEventListener("input", calcularTotal));
+inputs.forEach(input => input.addEventListener("input", calcularTotal));
 document.querySelectorAll('input[name="entrega"]').forEach(r => r.addEventListener("change", calcularTotal));
 
-// força cálculo ao carregar
-calcularTotal();
+function mostrarEndereco() {
+  const tipo = document.querySelector('input[name="entrega"]:checked').value;
+  document.getElementById("enderecoEntrega").classList.toggle("hidden", tipo !== "entrega");
+  document.getElementById("enderecoRetirada").classList.toggle("hidden", tipo === "entrega");
+  calcularTotal();
+}
 
-function finalizarTela(texto) {
-  document.getElementById("formulario").classList.add("hidden");
-  document.getElementById("telaFinal").classList.remove("hidden");
-  document.getElementById("mensagemFinal").innerText = texto;
+function mostrarPix() {
+  const pagamento = document.querySelector('input[name="pagamento"]:checked');
+  document.getElementById("pixInfo").classList.toggle("hidden", pagamento.value !== "pix");
 }
 
 function finalizarPedido() {
-  const total = calcularTotal();
-
-  if (total <= 0) {
-    alert("Adicione pelo menos um item ao pedido.");
-    return;
-  }
-
-  const pagamento = document.querySelector('input[name="pagamento"]:checked');
-  if (!pagamento) {
-    alert("Selecione a forma de pagamento.");
-    return;
-  }
-
-  let mensagem = "🍹 Pedido Braba's Drinks 🍹\n\n";
+  calcularTotal();
+  let mensagem = "🍹 *Pedido Braba's Drinks* 🍹\n\n";
 
   inputs.forEach(input => {
-    const qtd = Number(input.value);
-    if (qtd > 0) {
-      const nome = input.previousElementSibling.innerText;
-      mensagem += `${nome} x ${qtd}\n`;
+    if (input.value > 0) {
+      const nome = input.parentElement.querySelector("label").textContent;
+      mensagem += `${nome} - Quantidade: ${input.value}\n`;
     }
   });
 
-  mensagem += `\n💳 Pagamento: ${pagamento.value}`;
-  mensagem += `\nTotal: R$ ${total.toFixed(2).replace(".", ",")}`;
+  mensagem += `\n${totalEl.textContent}`;
 
   const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
-
-  // ABRE WHATSAPP SEM FALHAR
-  window.location.href = url;
-
-  if (pagamento.value === "pix") {
-    finalizarTela(
-      "💳 Pagamento via PIX selecionado.\n\n" +
-      "Pedido registrado com sucesso.\n" +
-      "Aguardando confirmação do pagamento."
-    );
-  } else {
-    finalizarTela(
-      "✅ Pedido enviado com sucesso!\n\n" +
-      "Obrigado pela preferência."
-    );
-  }
+  window.open(url, "_blank");
 }
 </script>
 
 </body>
 </html>
-
 
 
