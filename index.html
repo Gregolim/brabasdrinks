@@ -296,22 +296,32 @@
         alert("Selecione uma forma de pagamento!");
         return;
       }
+mensagem += `\n💳 Pagamento: ${pagamento.value}\n`; 
+mensagem += totalEl.textContent;
 
-      mensagem += `\n💳 Pagamento: ${pagamento.value}\n`;
-      mensagem += totalEl.textContent;
+const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
 
-      if (pagamento.value === "pix") {
-        alert("Processando pagamento via Pix...\nUse a chave: 05283512142 - Maiara Roberto Gregolim");
-        setTimeout(() => {
-          const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
-          window.open(url, "_blank");
-        }, 3000);
-      } else {
-        const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
-        window.open(url, "_blank");
-      }
-    }
-  </script>
-</body>
-</html>
+if (pagamento.value === "pix") {
+  alert(
+    "Processando pagamento via Pix...\n\n" +
+    "Chave PIX:\n05283512142\nMaiara Roberto Gregolim"
+  );
 
+  // Mostra a tela final IMEDIATAMENTE
+  finalizarTela(
+    "💳 Pagamento via PIX selecionado.\n\n" +
+    "📌 Seu pedido foi registrado com sucesso!\n" +
+    "Aguardando confirmação do pagamento."
+  );
+
+  // Abre o WhatsApp sem risco de bloqueio
+  window.open(url, "_blank");
+
+} else {
+  window.open(url, "_blank");
+
+  finalizarTela(
+    "✅ Pedido enviado com sucesso!\n\n" +
+    "Obrigado pela preferência."
+  );
+}
