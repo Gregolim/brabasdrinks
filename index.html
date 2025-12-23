@@ -137,25 +137,37 @@
 <section class="menu">
   <h2>Monte seu Pedido</h2>
 
-  <div class="item"><label>Copão de Gin - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
-  <div class="item"><label>Copão de Vodka - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
-  <div class="item"><label>Copão de Whisky - R$28</label><input type="number" min="0" value="0" data-price="28"></div>
-  <div class="item"><label>Copão Gourmet de Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
-  <div class="item"><label>Copão Gourmet de Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
-  <div class="item"><label>Fusca Azul - R$24</label><input type="number" min="0" value="0" data-price="24"></div>
-  <div class="item"><label>Aloprado - R$26</label><input type="number" min="0" value="0" data-price="26"></div>
-  <div class="item"><label>Final de Noite - R$30</label><input type="number" min="0" value="0" data-price="30"></div>
-  <div class="item"><label>Combo em Dobro Whisky - R$40</label><input type="number" min="0" value="0" data-price="40"></div>
+  <script>
+  const itens = document.querySelectorAll('.item input');
+  const totalEl = document.getElementById('total');
+  const entregaRadios = document.querySelectorAll('input[name="entrega"]');
 
-  <div class="summary">
-    <h3>Resumo do Pedido</h3>
-    <p id="total">Total: R$ 0,00</p>
+  function calcularTotal() {
+    let total = 0;
 
-    <div class="delivery">
-      <label><input type="radio" name="entrega" value="retirada" checked onchange="mostrarEndereco()"> Retirada</label><br>
-      <label><input type="radio" name="entrega" value="entrega" onchange="mostrarEndereco()"> Entrega (+R$7)</label>
-    </div>
+    itens.forEach(item => {
+      const quantidade = Number(item.value);
+      const preco = Number(item.dataset.price);
+      total += quantidade * preco;
+    });
 
+    const entregaSelecionada = document.querySelector('input[name="entrega"]:checked');
+    if (entregaSelecionada && entregaSelecionada.value === 'entrega') {
+      total += 7;
+    }
+
+    totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+  }
+
+  itens.forEach(item => {
+    item.addEventListener('input', calcularTotal);
+  });
+
+  entregaRadios.forEach(radio => {
+    radio.addEventListener('change', calcularTotal);
+  });
+</script>
+  
     <div id="enderecoEntrega" class="hidden">
       <input type="text" id="rua" placeholder="Rua">
       <input type="text" id="numero" placeholder="Número">
@@ -191,6 +203,7 @@
 </div>
 
 <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+
 
 
 
