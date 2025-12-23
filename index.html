@@ -19,10 +19,6 @@ header {
   background: #111;
 }
 
-header img {
-  max-width: 220px;
-}
-
 h1, h2, h3 {
   color: #ff4da6;
 }
@@ -49,11 +45,10 @@ h1, h2, h3 {
 }
 
 .summary {
-  margin-top: 20px;
-  padding: 20px;
   background: #1a1a1a;
   border: 2px solid #ff4da6;
   border-radius: 12px;
+  padding: 20px;
 }
 
 .btn {
@@ -62,7 +57,7 @@ h1, h2, h3 {
   background: #ff4da6;
   border: none;
   border-radius: 12px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
 }
@@ -92,25 +87,25 @@ h1, h2, h3 {
 <h3>Resumo do Pedido</h3>
 <p id="total">Total: R$ 0,00</p>
 
+<h4>Entrega</h4>
 <label><input type="radio" name="entrega" value="retirada" checked> Retirada</label><br>
 <label><input type="radio" name="entrega" value="entrega"> Entrega (+R$7)</label>
 
-<div class="pagamento">
 <h4>Pagamento</h4>
 <label><input type="radio" name="pagamento" value="cartao"> Cartão</label><br>
 <label><input type="radio" name="pagamento" value="dinheiro"> Dinheiro</label><br>
 <label><input type="radio" name="pagamento" value="pix"> Pix</label>
-</div>
 
+<br><br>
 <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
 </div>
 </section>
 
-<div id="telaFinal" class="menu hidden">
+<section class="menu hidden" id="telaFinal">
 <h2>✅ Pedido registrado!</h2>
 <p id="mensagemFinal"></p>
 <button class="btn" onclick="location.reload()">Novo pedido</button>
-</div>
+</section>
 
 <script>
 const inputs = document.querySelectorAll(".item input");
@@ -122,7 +117,9 @@ function calcularTotal() {
   inputs.forEach(input => {
     const qtd = Number(input.value);
     const preco = Number(input.dataset.price);
-    total += qtd * preco;
+    if (!isNaN(qtd) && !isNaN(preco)) {
+      total += qtd * preco;
+    }
   });
 
   const entrega = document.querySelector('input[name="entrega"]:checked');
@@ -130,56 +127,72 @@ function calcularTotal() {
     total += 7;
   }
 
-  totalEl.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
+  totalEl.innerText = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
   return total;
 }
 
-inputs.forEach(input => input.addEventListener("input", calcularTotal));
+// recalcula sempre
+inputs.forEach(i => i.addEventListener("input", calcularTotal));
 document.querySelectorAll('input[name="entrega"]').forEach(r => r.addEventListener("change", calcularTotal));
 
-function finalizarTela(msg) {
+// força cálculo ao carregar
+calcularTotal();
+
+function finalizarTela(texto) {
   document.getElementById("formulario").classList.add("hidden");
   document.getElementById("telaFinal").classList.remove("hidden");
-  document.getElementById("mensagemFinal").innerText = msg;
+  document.getElementById("mensagemFinal").innerText = texto;
 }
 
 function finalizarPedido() {
-  const totalPedido = calcularTotal();
+  const total = calcularTotal();
 
-  if (totalPedido === 0) {
-    alert("Adicione pelo menos um item!");
+  if (total <= 0) {
+    alert("Adicione pelo menos um item ao pedido.");
     return;
   }
 
   const pagamento = document.querySelector('input[name="pagamento"]:checked');
   if (!pagamento) {
-    alert("Selecione uma forma de pagamento!");
+    alert("Selecione a forma de pagamento.");
     return;
   }
 
   let mensagem = "🍹 Pedido Braba's Drinks 🍹\n\n";
 
   inputs.forEach(input => {
-    if (input.value > 0) {
-      mensagem += `${input.previousElementSibling.textContent} x ${input.value}\n`;
+    const qtd = Number(input.value);
+    if (qtd > 0) {
+      const nome = input.previousElementSibling.innerText;
+      mensagem += `${nome} x ${qtd}\n`;
     }
   });
 
   mensagem += `\n💳 Pagamento: ${pagamento.value}`;
-  mensagem += `\n${totalEl.textContent}`;
+  mensagem += `\nTotal: R$ ${total.toFixed(2).replace(".", ",")}`;
 
   const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
 
-  window.open(url, "_blank");
+  // ABRE WHATSAPP SEM FALHAR
+  window.location.href = url;
 
   if (pagamento.value === "pix") {
-    finalizarTela("Pagamento via PIX selecionado.\nPedido registrado.\nAguardando confirmação.");
+    finalizarTela(
+      "💳 Pagamento via PIX selecionado.\n\n" +
+      "Pedido registrado com sucesso.\n" +
+      "Aguardando confirmação do pagamento."
+    );
   } else {
-    finalizarTela("Pedido enviado com sucesso!\nObrigado pela preferência.");
+    finalizarTela(
+      "✅ Pedido enviado com sucesso!\n\n" +
+      "Obrigado pela preferência."
+    );
   }
 }
 </script>
 
 </body>
 </html>
+
+
 
