@@ -214,22 +214,38 @@
     });
   });
 
-  function mostrarPix() {
-    const pixInfo = document.getElementById('pixInfo');
-    const pagamento = document.querySelector('input[name="pagamento"]:checked');
+  <script>
+function finalizarPedido() {
+  const pagamentoSelecionado = document.querySelector(
+    'input[name="pagamento"]:checked'
+  );
 
-    pixInfo.style.display = pagamento && pagamento.value === 'pix'
-      ? 'block'
-      : 'none';
+  if (!pagamentoSelecionado) {
+    alert("Selecione uma forma de pagamento.");
+    return;
   }
 
-  function finalizarPedido() {
+  const formaPagamento = pagamentoSelecionado.value;
+
+  // LINK DO WHATSAPP
+  const whatsappURL =
+    "https://wa.me/5599999999999?text=Olá,%20meu%20pedido%20foi%20finalizado!";
+
+  // 👉 SE FOR PIX
+  if (formaPagamento === "pix") {
     alert("Pedido finalizado! Envie o comprovante se for Pix 💖");
+    window.location.href = whatsappURL;
+  } 
+  // 👉 SE FOR CARTÃO OU DINHEIRO
+  else {
+    window.location.href = whatsappURL;
   }
+}
 </script>
 
 </body>
 </html>
+
 
 
 
