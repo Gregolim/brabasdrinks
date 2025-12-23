@@ -1,125 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Braba's Drinks</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Braba's Drinks</title>
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
 
-header {
-  text-align: center;
-  padding: 20px;
-  background: #111;
-}
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+    }
 
-header img {
-  max-width: 220px;
-  height: auto;
-  margin-bottom: 10px;
-}
+    header img {
+      max-width: 220px;
+      height: auto;
+      margin-bottom: 10px;
+    }
 
-h1 {
-  color: #ff4da6;
-  margin: 10px 0 0 0;
-  font-size: 2.2rem;
-}
+    h1 {
+      color: #ff4da6;
+      margin: 10px 0 0;
+      font-size: 2.2rem;
+    }
 
-.menu {
-  padding: 30px 20px;
-  max-width: 600px;
-  margin: auto;
-}
+    .menu {
+      padding: 30px 20px;
+      max-width: 600px;
+      margin: auto;
+    }
 
-.menu h2 {
-  text-align: center;
-  color: #ff4da6;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
+    .menu h2 {
+      text-align: center;
+      color: #ff4da6;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
 
-.item {
-  background: #1a1a1a;
-  border: 2px solid #ff4da6;
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .item {
+      background: #1a1a1a;
+      border: 2px solid #ff4da6;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.item label {
-  flex: 1;
-  font-size: 1.1rem;
-}
+    .item label {
+      flex: 1;
+      font-size: 1.2rem;
+    }
 
-.item input {
-  width: 60px;
-  text-align: center;
-  padding: 5px;
-  border-radius: 8px;
-  border: 1px solid #ff4da6;
-}
+    .item input {
+      width: 60px;
+      text-align: center;
+      padding: 5px;
+      border-radius: 8px;
+      border: 1px solid #ff4da6;
+    }
 
-.summary {
-  margin-top: 20px;
-  padding: 20px;
-  background: #1a1a1a;
-  border: 2px solid #ff4da6;
-  border-radius: 12px;
-}
+    .summary {
+      margin-top: 20px;
+      padding: 20px;
+      background: #1a1a1a;
+      border: 2px solid #ff4da6;
+      border-radius: 12px;
+    }
 
-.summary h3 {
-  margin-top: 0;
-  color: #ff4da6;
-}
+    .summary h3 {
+      margin-bottom: 10px;
+      color: #ff4da6;
+    }
 
-.delivery, .pagamento {
-  margin: 15px 0;
-}
+    .delivery,
+    .pagamento {
+      margin: 15px 0;
+    }
 
-.btn {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  background: #ff4da6;
-  color: #000;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-}
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #ff4da6;
+      color: #000;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
 
-.hidden {
-  display: none;
-}
+    .btn:hover {
+      background: #ff66b2;
+    }
 
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #111;
-  font-size: 0.9rem;
-  color: #aaa;
-  margin-top: 20px;
-}
+    .hidden {
+      display: none;
+    }
 
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ff4da6;
-  margin-bottom: 8px;
-}
-</style>
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #111;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ff4da6;
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 
 <body>
@@ -130,108 +135,61 @@ input[type="text"] {
 </header>
 
 <section class="menu">
-<h2>Monte seu Pedido</h2>
+  <h2>Monte seu Pedido</h2>
 
-<div class="item"><label>Copão de Gin - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
-<div class="item"><label>Copão de Vodka - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
-<div class="item"><label>Copão de Whisky - R$28</label><input type="number" min="0" value="0" data-price="28"></div>
-<div class="item"><label>Copão Gourmet de Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
-<div class="item"><label>Copão Gourmet de Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
-<div class="item"><label>Fusca Azul - R$24</label><input type="number" min="0" value="0" data-price="24"></div>
-<div class="item"><label>Aloprado - R$26</label><input type="number" min="0" value="0" data-price="26"></div>
-<div class="item"><label>Final de Noite - R$30</label><input type="number" min="0" value="0" data-price="30"></div>
-<div class="item"><label>Combo Whisky em Dobro - R$40</label><input type="number" min="0" value="0" data-price="40"></div>
+  <div class="item"><label>Copão de Gin - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
+  <div class="item"><label>Copão de Vodka - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
+  <div class="item"><label>Copão de Whisky - R$28</label><input type="number" min="0" value="0" data-price="28"></div>
+  <div class="item"><label>Copão Gourmet de Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+  <div class="item"><label>Copão Gourmet de Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+  <div class="item"><label>Fusca Azul - R$24</label><input type="number" min="0" value="0" data-price="24"></div>
+  <div class="item"><label>Aloprado - R$26</label><input type="number" min="0" value="0" data-price="26"></div>
+  <div class="item"><label>Final de Noite - R$30</label><input type="number" min="0" value="0" data-price="30"></div>
+  <div class="item"><label>Combo em Dobro Whisky - R$40</label><input type="number" min="0" value="0" data-price="40"></div>
 
-<div class="summary">
-<h3>Resumo do Pedido</h3>
-<p id="total">Total: R$ 0,00</p>
+  <div class="summary">
+    <h3>Resumo do Pedido</h3>
+    <p id="total">Total: R$ 0,00</p>
 
-<div class="delivery">
-<label><input type="radio" name="entrega" value="retirada" checked onchange="mostrarEndereco()"> Retirada</label><br>
-<label><input type="radio" name="entrega" value="entrega" onchange="mostrarEndereco()"> Entrega (+R$7)</label>
-</div>
+    <div class="delivery">
+      <label><input type="radio" name="entrega" value="retirada" checked onchange="mostrarEndereco()"> Retirada</label><br>
+      <label><input type="radio" name="entrega" value="entrega" onchange="mostrarEndereco()"> Entrega (+R$7)</label>
+    </div>
 
-<div id="enderecoEntrega" class="hidden">
-<input type="text" id="rua" placeholder="Rua">
-<input type="text" id="numero" placeholder="Número">
-<input type="text" id="casa" placeholder="Casa">
-<input type="text" id="bairro" placeholder="Bairro">
-<input type="text" id="referencia" placeholder="Ponto de Referência">
-</div>
+    <div id="enderecoEntrega" class="hidden">
+      <input type="text" id="rua" placeholder="Rua">
+      <input type="text" id="numero" placeholder="Número">
+      <input type="text" id="casa" placeholder="Casa">
+      <input type="text" id="bairro" placeholder="Bairro">
+      <input type="text" id="referencia" placeholder="Ponto de Referência">
+    </div>
 
-<div id="enderecoRetirada">
-<p><b>Endereço para retirada:</b><br>Rua Colibri, 327 - Bairro Fênix</p>
-</div>
+    <div id="enderecoRetirada">
+      <p><b>Endereço para retirada:</b><br>Rua Colibri, 327 - Bairro Fênix</p>
+    </div>
 
-<div class="pagamento">
-<h4>Forma de pagamento:</h4>
-<label><input type="radio" name="pagamento" value="cartao"> Cartão</label><br>
-<label><input type="radio" name="pagamento" value="dinheiro"> Dinheiro</label><br>
-<label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label>
-</div>
+    <div class="pagamento">
+      <h4>Forma de pagamento:</h4>
+      <label><input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()"> Cartão</label><br>
+      <label><input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()"> Dinheiro</label><br>
+      <label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label>
+    </div>
 
-<div id="pixInfo" class="hidden">
-<p><b>Chave Pix:</b><br>05283512142<br>Maiara Roberto Gregolim</p>
-</div>
+    <div id="pixInfo" class="hidden">
+      <p><b>Chave Pix:</b><br>05283512142<br>Maiara Roberto Gregolim</p>
+    </div>
 
-<button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-</div>
+    <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+  </div>
 </section>
 
 <footer>
-© 2025 Braba's Drinks – Delivery de Drinks
+  © 2025 Braba's Drinks - Delivery de Drinks
 </footer>
 
 <script>
-const inputs = document.querySelectorAll(".item input");
-const totalEl = document.getElementById("total");
+  const inputs = document.querySelecto
 
-function calcularTotal() {
-  let total = 0;
-  inputs.forEach(input => {
-    total += Number(input.value) * Number(input.dataset.price);
-  });
 
-  const entrega = document.querySelector('input[name="entrega"]:checked');
-  if (entrega.value === "entrega" && total > 0) total += 7;
-
-  totalEl.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
-}
-
-inputs.forEach(input => input.addEventListener("input", calcularTotal));
-document.querySelectorAll('input[name="entrega"]').forEach(r => r.addEventListener("change", calcularTotal));
-
-function mostrarEndereco() {
-  const tipo = document.querySelector('input[name="entrega"]:checked').value;
-  document.getElementById("enderecoEntrega").classList.toggle("hidden", tipo !== "entrega");
-  document.getElementById("enderecoRetirada").classList.toggle("hidden", tipo === "entrega");
-  calcularTotal();
-}
-
-function mostrarPix() {
-  const pagamento = document.querySelector('input[name="pagamento"]:checked');
-  document.getElementById("pixInfo").classList.toggle("hidden", pagamento.value !== "pix");
-}
-
-function finalizarPedido() {
-  calcularTotal();
-  let mensagem = "🍹 *Pedido Braba's Drinks* 🍹\n\n";
-
-  inputs.forEach(input => {
-    if (input.value > 0) {
-      const nome = input.parentElement.querySelector("label").textContent;
-      mensagem += `${nome} - Quantidade: ${input.value}\n`;
-    }
-  });
-
-  mensagem += `\n${totalEl.textContent}`;
-
-  const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
-  window.open(url, "_blank");
-}
-</script>
-
-</body>
-</html>
 
 
