@@ -169,26 +169,28 @@
     </div>
 
     <div class="pagamento">
-      <h4>Forma de pagamento:</h4>
-      <label><input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()"> Cartão</label><br>
-      <label><input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()"> Dinheiro</label><br>
-      <label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label>
-    </div>
+  <h4>Forma de pagamento:</h4>
+  <label>
+    <input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()">
+    Cartão
+  </label><br>
 
-    <div id="pixInfo" class="hidden">
-      <p><b>Chave Pix:</b><br>05283512142<br>Maiara Roberto Gregolim</p>
-    </div>
+  <label>
+    <input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()">
+    Dinheiro
+  </label><br>
 
-    <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-  </div>
-</section>
+  <label>
+    <input type="radio" name="pagamento" value="pix" onchange="mostrarPix()">
+    Pix
+  </label>
+</div>
 
-<footer>
-  © 2025 Braba's Drinks - Delivery de Drinks
-</footer>
+<div id="pixInfo" style="display: none;">
+  <p><b>Chave Pix:</b><br>67998604369<br>Maiara Roberto Gregolim</p>
+</div>
 
-<script>
-  const inputs = document.querySelecto
+<button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
 
 
 
