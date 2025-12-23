@@ -1,327 +1,185 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Braba's Drinks</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Braba's Drinks</title>
 
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #111;
-    }
-
-    header img {
-      max-width: 220px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      color: #ff4da6;
-      margin: 10px 0 0 0;
-      font-size: 2.2rem;
-    }
-
-    .menu {
-      padding: 30px 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .menu h2 {
-      text-align: center;
-      color: #ff4da6;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-
-    .item {
-      background: #1a1a1a;
-      border: 2px solid #ff4da6;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .item label {
-      flex: 1;
-      font-size: 1.2rem;
-    }
-
-    .item input {
-      width: 60px;
-      text-align: center;
-      padding: 5px;
-      border-radius: 8px;
-      border: 1px solid #ff4da6;
-    }
-
-    .summary {
-      margin-top: 20px;
-      padding: 20px;
-      background: #1a1a1a;
-      border: 2px solid #ff4da6;
-      border-radius: 12px;
-    }
-
-    .summary h3 {
-      margin: 0 0 10px 0;
-      color: #ff4da6;
-    }
-
-    .delivery, .pagamento, .endereco {
-      margin: 15px 0;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background: #ff4da6;
-      color: #000;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #ff66b2;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #111;
-      font-size: 0.9rem;
-      color: #aaa;
-      margin-top: 20px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid #ff4da6;
-      margin-bottom: 8px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="logobravasdrink.jpeg" alt="Logo Braba's Drinks">
-    <h1>Braba's Drinks</h1>
-  </header>
-
-  <section class="menu">
-    <h2>Monte seu Pedido</h2>
-
-    <div class="item">
-      <label>Copão de Gin - R$22</label>
-      <input type="number" min="0" value="0" data-price="22">
-    </div>
-    <div class="item">
-      <label>Copão de Vodka - R$22</label>
-      <input type="number" min="0" value="0" data-price="22">
-    </div>
-    <div class="item">
-      <label>Copão de Whisky - R$28</label>
-      <input type="number" min="0" value="0" data-price="28">
-    </div>
-    <div class="item">
-      <label>Copão Gourmet de Morango - R$27</label>
-      <input type="number" min="0" value="0" data-price="27">
-    </div>
-    <div class="item">
-      <label>Copão Gourmet de Maracujá - R$27</label>
-      <input type="number" min="0" value="0" data-price="27">
-    </div>
-    <div class="item">
-      <label>Fusca Azul - R$24</label>
-      <input type="number" min="0" value="0" data-price="24">
-    </div>
-    <div class="item">
-      <label>Aloprado - R$26</label>
-      <input type="number" min="0" value="0" data-price="26">
-    </div>
-    <div class="item">
-      <label>Final de noite - R$30</label>
-      <input type="number" min="0" value="0" data-price="30">
-    </div>
-    <div class="item">
-      <label>Combo em dobro Whisky - R$40</label>
-      <input type="number" min="0" value="0" data-price="40">
-    </div>
-
-    <div class="summary">
-      <h3>Resumo do Pedido</h3>
-      <p id="total">Total: R$ 0,00</p>
-
-      <div class="delivery">
-        <label><input type="radio" name="entrega" value="retirada" checked onchange="mostrarEndereco()"> Retirada</label><br>
-        <label><input type="radio" name="entrega" value="entrega" onchange="mostrarEndereco()"> Entrega (+R$7)</label>
-      </div>
-
-      <div id="enderecoEntrega" class="hidden">
-        <input type="text" id="rua" placeholder="Rua">
-        <input type="text" id="numero" placeholder="Número">
-        <input type="text" id="casa" placeholder="Casa">
-        <input type="text" id="bairro" placeholder="Bairro">
-        <input type="text" id="referencia" placeholder="Ponto de Referência">
-      </div>
-
-      <div id="enderecoRetirada">
-        <p><b>Endereço para retirada:</b> Rua Colibri, 327 - Bairro Fênix</p>
-      </div>
-
-      <div class="pagamento">
-        <h4>Forma de pagamento:</h4>
-        <label><input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()"> Cartão</label><br>
-        <label><input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()"> Dinheiro</label><br>
-        <label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label>
-      </div>
-
-      <div id="pixInfo" class="hidden">
-        <p><b>Chave Pix:</b> 05283512142 - Maiara Roberto Gregolim</p>
-      </div>
-
-      <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Braba's Drinks - Delivery de Drinks
-  </footer>
-
-  <script>
-    const inputs = document.querySelectorAll(".item input");
-    const totalEl = document.getElementById("total");
-
-    function calcularTotal() {
-      let total = 0;
-      inputs.forEach(input => {
-        total += input.value * input.dataset.price;
-      });
-
-      const entrega = document.querySelector('input[name="entrega"]:checked').value;
-      if (entrega === "entrega" && total > 0) {
-        total += 7;
-      }
-
-      totalEl.textContent = "Total: R$ " + total.toFixed(2).replace(".", ",");
-      return total;
-    }
-
-    inputs.forEach(input => {
-      input.addEventListener("input", calcularTotal);
-    });
-
-    document.querySelectorAll('input[name="entrega"]').forEach(radio => {
-      radio.addEventListener("change", calcularTotal);
-    });
-
-    function mostrarEndereco() {
-      const opcao = document.querySelector('input[name="entrega"]:checked').value;
-      document.getElementById("enderecoEntrega").classList.add("hidden");
-      document.getElementById("enderecoRetirada").classList.add("hidden");
-
-      if (opcao === "entrega") {
-        document.getElementById("enderecoEntrega").classList.remove("hidden");
-      } else {
-        document.getElementById("enderecoRetirada").classList.remove("hidden");
-      }
-      calcularTotal();
-    }
-
-    function mostrarPix() {
-      const pagamento = document.querySelector('input[name="pagamento"]:checked').value;
-      document.getElementById("pixInfo").classList.add("hidden");
-
-      if (pagamento === "pix") {
-        document.getElementById("pixInfo").classList.remove("hidden");
-      }
-    }
-
-    function finalizarPedido() {
-      let mensagem = "🍹 *Pedido Braba's Drinks* 🍹\n\n";
-      inputs.forEach(input => {
-        if (input.value > 0) {
-          const nome = input.parentElement.querySelector("label").textContent;
-          mensagem += `${nome} - Quantidade: ${input.value}\n`;
-        }
-      });
-
-      const entrega = document.querySelector('input[name="entrega"]:checked');
-      if (!entrega) {
-        alert("Selecione entrega ou retirada!");
-        return;
-      }
-      if (entrega.value === "entrega") {
-        const rua = document.getElementById("rua").value;
-        const numero = document.getElementById("numero").value;
-        const casa = document.getElementById("casa").value;
-        const bairro = document.getElementById("bairro").value;
-        const referencia = document.getElementById("referencia").value;
-
-        if (!rua || !numero || !casa || !bairro || !referencia) {
-          alert("Preencha todos os campos de endereço!");
-          return;
-        }
-
-        mensagem += `\n📍 Entrega em: ${rua}, ${numero}, ${casa}, ${bairro} (Ref: ${referencia})\n`;
-      } else {
-        mensagem += `\n📍 Retirada em: Rua Colibri, 327 - Bairro Fênix\n`;
-      }
-
-      const pagamento = document.querySelector('input[name="pagamento"]:checked');
-      if (!pagamento) {
-        alert("Selecione uma forma de pagamento!");
-        return;
-      }
-mensagem += `\n💳 Pagamento: ${pagamento.value}\n`; 
-mensagem += totalEl.textContent;
-
-const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
-
-if (pagamento.value === "pix") {
-  alert(
-    "Processando pagamento via Pix...\n\n" +
-    "Chave PIX:\n05283512142\nMaiara Roberto Gregolim"
-  );
-
-  // Mostra a tela final IMEDIATAMENTE
-  finalizarTela(
-    "💳 Pagamento via PIX selecionado.\n\n" +
-    "📌 Seu pedido foi registrado com sucesso!\n" +
-    "Aguardando confirmação do pagamento."
-  );
-
-  // Abre o WhatsApp sem risco de bloqueio
-  window.open(url, "_blank");
-
-} else {
-  window.open(url, "_blank");
-
-  finalizarTela(
-    "✅ Pedido enviado com sucesso!\n\n" +
-    "Obrigado pela preferência."
-  );
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  margin: 0;
 }
+
+header {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+}
+
+header img {
+  max-width: 220px;
+}
+
+h1, h2, h3 {
+  color: #ff4da6;
+}
+
+.menu {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.item {
+  background: #1a1a1a;
+  border: 2px solid #ff4da6;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.item input {
+  width: 60px;
+  text-align: center;
+}
+
+.summary {
+  margin-top: 20px;
+  padding: 20px;
+  background: #1a1a1a;
+  border: 2px solid #ff4da6;
+  border-radius: 12px;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  background: #ff4da6;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Braba's Drinks</h1>
+</header>
+
+<section class="menu" id="formulario">
+<h2>Monte seu Pedido</h2>
+
+<div class="item"><label>Copão de Gin - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
+<div class="item"><label>Copão de Vodka - R$22</label><input type="number" min="0" value="0" data-price="22"></div>
+<div class="item"><label>Copão de Whisky - R$28</label><input type="number" min="0" value="0" data-price="28"></div>
+<div class="item"><label>Gourmet Morango - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+<div class="item"><label>Gourmet Maracujá - R$27</label><input type="number" min="0" value="0" data-price="27"></div>
+
+<div class="summary">
+<h3>Resumo do Pedido</h3>
+<p id="total">Total: R$ 0,00</p>
+
+<label><input type="radio" name="entrega" value="retirada" checked> Retirada</label><br>
+<label><input type="radio" name="entrega" value="entrega"> Entrega (+R$7)</label>
+
+<div class="pagamento">
+<h4>Pagamento</h4>
+<label><input type="radio" name="pagamento" value="cartao"> Cartão</label><br>
+<label><input type="radio" name="pagamento" value="dinheiro"> Dinheiro</label><br>
+<label><input type="radio" name="pagamento" value="pix"> Pix</label>
+</div>
+
+<button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+</div>
+</section>
+
+<div id="telaFinal" class="menu hidden">
+<h2>✅ Pedido registrado!</h2>
+<p id="mensagemFinal"></p>
+<button class="btn" onclick="location.reload()">Novo pedido</button>
+</div>
+
+<script>
+const inputs = document.querySelectorAll(".item input");
+const totalEl = document.getElementById("total");
+
+function calcularTotal() {
+  let total = 0;
+
+  inputs.forEach(input => {
+    const qtd = Number(input.value);
+    const preco = Number(input.dataset.price);
+    total += qtd * preco;
+  });
+
+  const entrega = document.querySelector('input[name="entrega"]:checked');
+  if (entrega && entrega.value === "entrega" && total > 0) {
+    total += 7;
+  }
+
+  totalEl.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
+  return total;
+}
+
+inputs.forEach(input => input.addEventListener("input", calcularTotal));
+document.querySelectorAll('input[name="entrega"]').forEach(r => r.addEventListener("change", calcularTotal));
+
+function finalizarTela(msg) {
+  document.getElementById("formulario").classList.add("hidden");
+  document.getElementById("telaFinal").classList.remove("hidden");
+  document.getElementById("mensagemFinal").innerText = msg;
+}
+
+function finalizarPedido() {
+  const totalPedido = calcularTotal();
+
+  if (totalPedido === 0) {
+    alert("Adicione pelo menos um item!");
+    return;
+  }
+
+  const pagamento = document.querySelector('input[name="pagamento"]:checked');
+  if (!pagamento) {
+    alert("Selecione uma forma de pagamento!");
+    return;
+  }
+
+  let mensagem = "🍹 Pedido Braba's Drinks 🍹\n\n";
+
+  inputs.forEach(input => {
+    if (input.value > 0) {
+      mensagem += `${input.previousElementSibling.textContent} x ${input.value}\n`;
+    }
+  });
+
+  mensagem += `\n💳 Pagamento: ${pagamento.value}`;
+  mensagem += `\n${totalEl.textContent}`;
+
+  const url = "https://wa.me/5567998604369?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
+
+  if (pagamento.value === "pix") {
+    finalizarTela("Pagamento via PIX selecionado.\nPedido registrado.\nAguardando confirmação.");
+  } else {
+    finalizarTela("Pedido enviado com sucesso!\nObrigado pela preferência.");
+  }
+}
+</script>
+
+</body>
+</html>
+
