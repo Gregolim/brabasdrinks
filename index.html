@@ -82,7 +82,6 @@
       color: #ff4da6;
     }
 
-    .delivery,
     .pagamento {
       margin: 15px 0;
     }
@@ -104,10 +103,6 @@
       background: #ff66b2;
     }
 
-    .hidden {
-      display: none;
-    }
-
     footer {
       text-align: center;
       padding: 15px;
@@ -115,14 +110,6 @@
       font-size: 0.9rem;
       color: #aaa;
       margin-top: 20px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid #ff4da6;
-      margin-bottom: 8px;
     }
   </style>
 </head>
@@ -137,103 +124,112 @@
 <section class="menu">
   <h2>Monte seu Pedido</h2>
 
+  <!-- BEBIDAS -->
   <div class="item">
-  <label>Batida de Maracujá — R$ 30,00</label>
-  <input type="number" min="0" value="0" data-price="30">
-</div>
+    <label>Batida de Maracujá — R$ 30,00</label>
+    <input type="number" min="0" value="0" data-price="30">
+  </div>
 
-<div class="item">
-  <label>Fusca Azul — R$ 30,00</label>
-  <input type="number" min="0" value="0" data-price="30">
-</div>
+  <div class="item">
+    <label>Fusca Azul — R$ 30,00</label>
+    <input type="number" min="0" value="0" data-price="30">
+  </div>
 
-<div class="item">
-  <label>Caipirosca de Morango — R$ 30,00</label>
-  <input type="number" min="0" value="0" data-price="30">
-</div>
+  <div class="item">
+    <label>Caipirosca de Morango — R$ 30,00</label>
+    <input type="number" min="0" value="0" data-price="30">
+  </div>
 
-<div class="item">
-  <label>Final de Noite — R$ 35,00</label>
-  <input type="number" min="0" value="0" data-price="35">
-</div>
+  <div class="item">
+    <label>Final de Noite — R$ 35,00</label>
+    <input type="number" min="0" value="0" data-price="35">
+  </div>
 
-<div class="item">
-  <label>Whisky com Energético — R$ 35,00</label>
-  <input type="number" min="0" value="0" data-price="35">
-</div>
+  <div class="item">
+    <label>Whisky com Energético — R$ 35,00</label>
+    <input type="number" min="0" value="0" data-price="35">
+  </div>
 
-<div class="item">
-  <label>Frozen — R$ 32,00</label>
-  <input type="number" min="0" value="0" data-price="32">
-</div>
-  
-  <script>
-  const itens = document.querySelectorAll('.item input');
-  const totalEl = document.getElementById('total');
-  const entregaRadios = document.querySelectorAll('input[name="entrega"]');
+  <div class="item">
+    <label>Frozen — R$ 32,00</label>
+    <input type="number" min="0" value="0" data-price="32">
+  </div>
 
-  function calcularTotal() {
-    let total = 0;
+  <!-- RESUMO -->
+  <div class="summary">
+    <h3>Resumo do Pedido</h3>
+    <p id="total">Total: R$ 0,00</p>
+  </div>
 
-    itens.forEach(item => {
-      const quantidade = Number(item.value);
-      const preco = Number(item.dataset.price);
-      total += quantidade * preco;
-    });
+  <!-- PAGAMENTO -->
+  <div class="pagamento">
+    <h4>Forma de pagamento:</h4>
 
-    const entregaSelecionada = document.querySelector('input[name="entrega"]:checked');
-    if (entregaSelecionada && entregaSelecionada.value === 'entrega') {
-      total += 7;
+    <label>
+      <input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()">
+      Cartão
+    </label><br>
+
+    <label>
+      <input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()">
+      Dinheiro
+    </label><br>
+
+    <label>
+      <input type="radio" name="pagamento" value="pix" onchange="mostrarPix()">
+      Pix
+    </label>
+  </div>
+
+  <div id="pixInfo" style="display: none;">
+    <p><b>Chave Pix:</b><br>67998604369<br>Maiara Roberto Gregolim</p>
+  </div>
+
+  <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+</section>
+
+<footer>
+  © 2025 Braba's Drinks
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const itens = document.querySelectorAll('.item input');
+    const totalEl = document.getElementById('total');
+
+    function calcularTotal() {
+      let total = 0;
+
+      itens.forEach(item => {
+        const quantidade = Number(item.value);
+        const preco = Number(item.dataset.price);
+        total += quantidade * preco;
+      });
+
+      totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 
-    totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    itens.forEach(item => {
+      item.addEventListener('input', calcularTotal);
+    });
+  });
+
+  function mostrarPix() {
+    const pixInfo = document.getElementById('pixInfo');
+    const pagamento = document.querySelector('input[name="pagamento"]:checked');
+
+    pixInfo.style.display = pagamento && pagamento.value === 'pix'
+      ? 'block'
+      : 'none';
   }
 
-  itens.forEach(item => {
-    item.addEventListener('input', calcularTotal);
-  });
-
-  entregaRadios.forEach(radio => {
-    radio.addEventListener('change', calcularTotal);
-  });
+  function finalizarPedido() {
+    alert("Pedido finalizado! Envie o comprovante se for Pix 💖");
+  }
 </script>
-  
-    <div id="enderecoEntrega" class="hidden">
-      <input type="text" id="rua" placeholder="Rua">
-      <input type="text" id="numero" placeholder="Número">
-      <input type="text" id="casa" placeholder="Casa">
-      <input type="text" id="bairro" placeholder="Bairro">
-      <input type="text" id="referencia" placeholder="Ponto de Referência">
-    </div>
 
-    <div id="enderecoRetirada">
-      <p><b>Endereço para retirada:</b><br>Rua Colibri, 327 - Bairro Fênix</p>
-    </div>
-
-    <div class="pagamento">
-  <h4>Forma de pagamento:</h4>
-  <label>
-    <input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()">
-    Cartão
-  </label><br>
-
-  <label>
-    <input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()">
-    Dinheiro
-  </label><br>
-
-  <label>
-    <input type="radio" name="pagamento" value="pix" onchange="mostrarPix()">
-    Pix
-  </label>
-</div>
-
-<div id="pixInfo" style="display: none;">
-  <p><b>Chave Pix:</b><br>67998604369<br>Maiara Roberto Gregolim</p>
-</div>
-
-<button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-
+</body>
+</html>
 
 
 
