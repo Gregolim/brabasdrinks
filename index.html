@@ -155,44 +155,7 @@
     <input type="number" min="0" value="0" data-price="32">
   </div>
 
-  <!-- RESUMO -->
-  <div class="summary">
-    <h3>Resumo do Pedido</h3>
-    <p id="total">Total: R$ 0,00</p>
-  </div>
-
-  <!-- PAGAMENTO -->
-  <div class="pagamento">
-    <h4>Forma de pagamento:</h4>
-
-    <label>
-      <input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()">
-      Cartão
-    </label><br>
-
-    <label>
-      <input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()">
-      Dinheiro
-    </label><br>
-
-    <label>
-      <input type="radio" name="pagamento" value="pix" onchange="mostrarPix()">
-      Pix
-    </label>
-  </div>
-
-  <div id="pixInfo" style="display: none;">
-    <p><b>Chave Pix:</b><br>67998604369<br>Maiara Roberto Gregolim</p>
-  </div>
-
-  <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-</section>
-
-<footer>
-  © 2025 Braba's Drinks
-</footer>
-
-<script>
+  <script>
   document.addEventListener('DOMContentLoaded', function () {
     const itens = document.querySelectorAll('.item input');
     const totalEl = document.getElementById('total');
@@ -214,37 +177,42 @@
     });
   });
 
-  <script>
-function finalizarPedido() {
-  const pagamentoSelecionado = document.querySelector(
-    'input[name="pagamento"]:checked'
-  );
+  // 👉 MOSTRA A CHAVE PIX SOMENTE SE PIX FOR SELECIONADO
+  function mostrarPix() {
+    const pixSelecionado = document.querySelector(
+      'input[name="pagamento"][value="pix"]:checked'
+    );
+    const pixInfo = document.getElementById("pixInfo");
 
-  if (!pagamentoSelecionado) {
-    alert("Selecione uma forma de pagamento.");
-    return;
+    pixInfo.style.display = pixSelecionado ? "block" : "none";
   }
 
-  const formaPagamento = pagamentoSelecionado.value;
+  // 👉 FINALIZA O PEDIDO
+  function finalizarPedido() {
+    const pagamentoSelecionado = document.querySelector(
+      'input[name="pagamento"]:checked'
+    );
 
-  // LINK DO WHATSAPP
-  const whatsappURL =
-    "https://wa.me/5567998604369?text=Olá,%20meu%20pedido%20foi%20finalizado!";
+    if (!pagamentoSelecionado) {
+      alert("Selecione uma forma de pagamento.");
+      return;
+    }
 
-  // 👉 SE FOR PIX
-  if (formaPagamento === "pix") {
-    alert("Pedido finalizado! Envie o comprovante se for Pix");
-    window.location.href = whatsappURL;
-  } 
-  // 👉 SE FOR CARTÃO OU DINHEIRO
-  else {
-    window.location.href = whatsappURL;
+    const formaPagamento = pagamentoSelecionado.value;
+
+    const whatsappURL =
+      "https://wa.me/5567998604369?text=Olá,%20meu%20pedido%20foi%20finalizado!";
+
+    // ✅ SOMENTE PIX MOSTRA ALERT
+    if (formaPagamento === "pix") {
+      alert("Pedido finalizado! Envie o comprovante se for Pix 💖");
+      window.location.href = whatsappURL;
+    } else {
+      // ✅ CARTÃO E DINHEIRO VÃO DIRETO
+      window.location.href = whatsappURL;
+    }
   }
-}
 </script>
-
-</body>
-</html>
 
 
 
