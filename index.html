@@ -160,38 +160,56 @@
   <input type="number" min="0" value="0" data-price="35">
 </div>
   
-  <!-- RESUMO -->
-  <div class="summary">
-    <h3>Entrega</h3>
-    <label>
-      <input type="radio" name="entrega" value="retirada" checked>
-      Retirar no local (Grátis)
-    </label><br>
-    <label>
-      <input type="radio" name="entrega" value="entrega">
-      Entrega (+ R$ 7,00)
-    </label>
+ <!-- RESUMO -->
+<div class="summary">
+  <h3>Entrega</h3>
 
-    <h3>Pagamento</h3>
-    <label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label><br>
-    <label><input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()"> Cartão</label><br>
-    <label><input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()"> Dinheiro</label>
+  <label>
+    <input type="radio" name="entrega" value="retirada" checked>
+    Retirar no local (Grátis)
+  </label><br>
 
-    <div id="pixInfo">
-      💖 Chave Pix: 67998604369
-    </div>
+  <label>
+    <input type="radio" name="entrega" value="entrega">
+    Entrega (+ R$ 7,00)
+  </label>
 
-    <h3 id="total">Total: R$ 0,00</h3>
-
-    <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+  <!-- ENDEREÇO RETIRADA -->
+  <div id="enderecoRetirada" style="margin-top:10px;">
+    📍 <strong>Endereço para retirada:</strong><br>
+    Rua Colibri nº 327 – Bairro Fênix
   </div>
-</section>
+
+  <!-- ENDEREÇO ENTREGA (CLIENTE PREENCHE) -->
+  <div id="enderecoEntrega" style="display:none; margin-top:10px;">
+    <strong>Endereço de entrega</strong><br>
+    <input type="text" id="rua" placeholder="Rua"><br>
+    <input type="text" id="numero" placeholder="Número da casa"><br>
+    <input type="text" id="bairro" placeholder="Bairro"><br>
+    <input type="text" id="referencia" placeholder="Ponto de referência"><br>
+  </div>
+
+  <h3>Pagamento</h3>
+  <label><input type="radio" name="pagamento" value="pix" onchange="mostrarPix()"> Pix</label><br>
+  <label><input type="radio" name="pagamento" value="cartao" onchange="mostrarPix()"> Cartão</label><br>
+  <label><input type="radio" name="pagamento" value="dinheiro" onchange="mostrarPix()"> Dinheiro</label>
+
+  <div id="pixInfo" style="display:none;">
+    💖 Chave Pix: 67998604369
+  </div>
+
+  <h3 id="total">Total: R$ 0,00</h3>
+
+  <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const itens = document.querySelectorAll('.item input');
   const totalEl = document.getElementById('total');
   const entregaRadios = document.querySelectorAll('input[name="entrega"]');
+  const enderecoRetirada = document.getElementById('enderecoRetirada');
+  const enderecoEntrega = document.getElementById('enderecoEntrega');
   const TAXA_ENTREGA = 7;
 
   function calcularTotal() {
@@ -202,8 +220,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const entregaSelecionada = document.querySelector('input[name="entrega"]:checked').value;
+
     if (entregaSelecionada === "entrega") {
       total += TAXA_ENTREGA;
+      enderecoEntrega.style.display = "block";
+      enderecoRetirada.style.display = "none";
+    } else {
+      enderecoEntrega.style.display = "none";
+      enderecoRetirada.style.display = "block";
     }
 
     totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
@@ -211,6 +235,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   itens.forEach(item => item.addEventListener('input', calcularTotal));
   entregaRadios.forEach(radio => radio.addEventListener('change', calcularTotal));
+
+  calcularTotal();
 });
 
 // MOSTRAR PIX
@@ -219,7 +245,7 @@ function mostrarPix() {
   document.getElementById("pixInfo").style.display = pix ? "block" : "none";
 }
 
-// FINALIZAR PEDIDO
+// FINALIZAR PEDIDO (COM VALIDAÇÃO)
 function finalizarPedido() {
   const pagamento = document.querySelector('input[name="pagamento"]:checked');
   if (!pagamento) {
@@ -227,12 +253,23 @@ function finalizarPedido() {
     return;
   }
 
+  const entregaSelecionada = document.querySelector('input[name="entrega"]:checked').value;
+
+  if (entregaSelecionada === "entrega") {
+    const rua = document.getElementById("rua").value.trim();
+    const numero = document.getElementById("numero").value.trim();
+    const bairro = document.getElementById("bairro").value.trim();
+    const referencia = document.getElementById("referencia").value.trim();
+
+    if (!rua || !numero || !bairro || !referencia) {
+      alert("Por favor, preencha todos os campos do endereço de entrega.");
+      return;
+    }
+  }
+
   window.location.href = "https://wa.me/5567998604369";
 }
 </script>
-
-</body>
-</html>
 
 
 
