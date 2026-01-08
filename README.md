@@ -1,4 +1,4 @@
- 🍹 Brabas Drink
+  Brabas Drink
 
 Projeto de site desenvolvido para o **Brabas Drink**, com foco na apresentação do cardápio de bebidas e na simulação de pedidos, oferecendo as opções de **retirada no local** ou **entrega**.
 
@@ -13,7 +13,7 @@ O projeto foi criado como parte do meu processo de aprendizado em **desenvolvime
  Tecnologias Utilizadas
 - HTML5  
 - CSS3  
-- JavaScript (Vanilla)
+- JavaScript
 
 ---
 
