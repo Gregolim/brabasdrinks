@@ -9,6 +9,9 @@ O projeto foi criado como parte do meu processo de aprendizado em **desenvolvime
  Projeto Online
 🔗Acesse aqui: https://gregolim.github.io/brabasdrinks/
 ---
+## ▶️ Como executar o projeto
+1. Faça o download ou clone este repositório
+2. Abra o arquivo `index.html` no navegador
 
  Tecnologias Utilizadas
 - HTML5  
